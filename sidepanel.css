@@ -1,0 +1,43 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 14px; color: #1f2430; background: #fafaff; }
+.head { padding: 14px 14px 10px; background: linear-gradient(135deg, #6d5cff, #9b7bff); color: #fff; position: sticky; top: 0; z-index: 5; }
+.title-row { display: flex; align-items: center; gap: 8px; }
+h1 { font-size: 17px; margin: 0; }
+.badge { background: rgba(255,255,255,.25); border-radius: 999px; padding: 2px 8px; font-size: 12px; }
+.status { margin: 6px 0 8px; font-size: 12px; opacity: .95; }
+#search { width: 100%; padding: 9px 11px; border: none; border-radius: 10px; font-size: 14px; outline: none; }
+#search:focus { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #c9bfff; }
+.cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.cats button { border: 1px solid rgba(255,255,255,.55); background: transparent; color: #fff; border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+.cats button.active { background: #fff; color: #5b4bd6; font-weight: 700; }
+.settings { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 14px; background: #fff; border-bottom: 1px solid #e8e8f2; font-size: 12px; position: sticky; top: 0; }
+.settings-label { font-weight: 700; }
+.settings label { cursor: pointer; display: flex; gap: 4px; align-items: center; }
+.list { padding: 10px 12px 8px; display: grid; gap: 8px; }
+.card { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; width: 100%; text-align: left; background: #fff; border: 1px solid #e6e6f2; border-radius: 12px; padding: 10px 12px; cursor: pointer; }
+.card:hover { border-color: #7c6cff; box-shadow: 0 2px 10px rgba(124,108,255,.18); }
+.card:active { transform: scale(.99); }
+.card .ko { font-weight: 700; font-size: 14px; }
+.card .en { color: #5b4bd6; font-weight: 600; font-size: 13px; }
+.card .desc { grid-column: 1 / -1; color: #666; font-size: 12px; line-height: 1.45; }
+.card .fav { background: none; border: none; font-size: 16px; cursor: pointer; line-height: 1; padding: 2px; }
+.card .fav.on { color: #f5a623; }
+.card .cat-tag { grid-column: 1 / -1; font-size: 11px; color: #888; }
+.no-result { text-align: center; color: #888; padding: 24px 8px; font-size: 13px; }
+.basket { margin: 4px 12px 12px; background: #fff; border: 1px solid #e6e6f2; border-radius: 12px; padding: 10px 12px; position: sticky; bottom: 8px; box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+.basket-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.basket-actions { display: flex; gap: 6px; }
+.basket-actions button { border: 1px solid #7c6cff; background: #7c6cff; color: #fff; border-radius: 8px; padding: 6px 9px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.basket-actions button.ghost { background: #fff; color: #666; border-color: #ddd; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; min-height: 24px; }
+.chips .chip { background: #efeaff; color: #4b3fd4; border-radius: 999px; padding: 4px 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.chips .chip:hover { background: #e2d9ff; }
+.chips .empty { color: #999; font-size: 12px; }
+.hint { color: #888; font-size: 11px; line-height: 1.5; margin: 8px 0 0; }
+.custom { padding: 0 12px 16px; }
+.custom summary { cursor: pointer; font-size: 13px; font-weight: 700; }
+.custom form { display: grid; gap: 6px; margin-top: 8px; }
+.custom input, .custom select { padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
+.custom button { padding: 8px; border: none; border-radius: 8px; background: #1f2430; color: #fff; font-weight: 700; cursor: pointer; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: #1f2430; color: #fff; padding: 9px 14px; border-radius: 999px; font-size: 13px; opacity: 0; pointer-events: none; transition: .2s; max-width: 90%; text-align: center; z-index: 20; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

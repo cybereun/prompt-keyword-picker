@@ -1,0 +1,57 @@
+{
+  "action": {
+    "default_icon": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_title": "프롬프트 키워드 픽커 열기"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "content.js"
+      ],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://aistudio.google.com/*",
+        "https://muse.ai/*",
+        "https://*.muse.ai/*"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "description": "이미지·영상 프롬프트 키워드를 빠르게 찾아 ChatGPT, Claude, Gemini, Muse 채팅창에 클릭 한 번으로 입력하는 확장앱. 책 43개 + 조사 42개 + 카메라 워크·장면 전환 12개, 총 97개 수록.",
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://aistudio.google.com/*",
+    "https://muse.ai/*",
+    "https://*.muse.ai/*"
+  ],
+  "icons": {
+    "128": "icons/icon128.png",
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png"
+  },
+  "manifest_version": 3,
+  "name": "프롬프트 키워드 픽커",
+  "permissions": [
+    "sidePanel",
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "version": "1.2.1"
+}

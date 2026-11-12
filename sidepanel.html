@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프롬프트 키워드 픽커</title>
+<link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+<header class="head">
+  <div class="title-row">
+    <h1>🎬 프롬프트 키워드</h1>
+    <span id="countBadge" class="badge">97개</span>
+  </div>
+  <p id="siteStatus" class="status">사이트 확인 중…</p>
+  <input id="search" type="search" placeholder="검색 — 예) 골든, golden, 시네마틱, 드론  ( / 키 )" autocomplete="off">
+  <div id="cats" class="cats" role="tablist" aria-label="카테고리"></div>
+</header>
+
+<section class="settings">
+  <span class="settings-label">클릭하면 채팅창에 입력:</span>
+  <label><input type="radio" name="fmt" value="en" checked> 영문만</label>
+  <label><input type="radio" name="fmt" value="ko-en"> 한글+영문</label>
+  <label><input type="radio" name="fmt" value="ko"> 한글만</label>
+</section>
+
+<main id="list" class="list"></main>
+
+<section class="basket">
+  <div class="basket-head">
+    <strong>🧺 선택한 키워드 <span id="basketCount">0</span></strong>
+    <div class="basket-actions">
+      <button id="insertAll" type="button">채팅에 모두 입력</button>
+      <button id="copyAll" type="button">복사</button>
+      <button id="clearBasket" type="button" class="ghost">지우기</button>
+    </div>
+  </div>
+  <div id="basketChips" class="chips"><span class="empty">키워드를 클릭하면 여기에 모입니다.</span></div>
+  <p class="hint">팁: 키워드 카드를 클릭하면 바로 채팅창에 들어가고, ★를 누르면 즐겨찾기에 저장됩니다. 지원 사이트가 아닐 때는 ‘복사’ 후 직접 붙여넣으세요.</p>
+</section>
+
+<section class="custom">
+  <details>
+    <summary>➕ 내 키워드 추가</summary>
+    <form id="customForm">
+      <input id="cKo" placeholder="한글 (예: 드론 추적 샷)" required>
+      <input id="cEn" placeholder="영문 (예: Drone Tracking Shot)" required>
+      <select id="cCat">
+        <option value="camera">카메라 구도</option>
+        <option value="light">조명</option>
+        <option value="color">색감 &amp; 톤</option>
+        <option value="mood">분위기</option>
+        <option value="style">화풍 &amp; 스타일</option>
+        <option value="material">재질 &amp; 질감</option>
+        <option value="quality">화질 &amp; 디테일</option>
+        <option value="motion">영상 움직임</option>
+        <option value="transition">장면 전환</option>
+      </select>
+      <input id="cDesc" placeholder="설명 (선택)">
+      <button type="submit">추가하기</button>
+    </form>
+  </details>
+</section>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="keywords.js"></script>
+<script src="sidepanel.js"></script>
+</body>
+</html>
