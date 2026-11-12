@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프롬프트 키워드 픽커 — 이미지·영상 프롬프트, 클릭 한 번으로</title>
+<meta name="description" content="프롬프트 키워드 픽커는 Chrome 확장앱입니다. 97개 키워드를 검색·카테고리로 찾고, 클릭 한 번이면 ChatGPT·Claude·Gemini·Muse 채팅창에 바로 입력돼요.">
+<style>
+  :root{
+    --bg:#0d0a1a; --bg2:#17112e; --card:#1e1538; --line:#2e2260;
+    --violet:#8b5cf6; --violet2:#a78bfa; --lav:#c4b5fd;
+    --text:#f3f1fa; --muted:#b3a8d6; --green:#34d399; --amber:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:"Noto Sans KR","Malgun Gothic",system-ui,-apple-system,sans-serif;line-height:1.7}
+  a{color:var(--violet2);text-decoration:none}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;background:rgba(13,10,26,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+  nav{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:14px 24px}
+  .logo{font-weight:800;font-size:18px;color:var(--text)}
+  .logo span{color:var(--violet2)}
+  nav ul{display:flex;gap:22px;list-style:none;font-size:14px}
+  nav ul a{color:var(--muted)}
+  nav ul a:hover{color:var(--text)}
+  .hero{padding:84px 0 64px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 0%,#2a1b5e 0%,var(--bg) 70%)}
+  .badge{display:inline-block;background:var(--card);border:1px solid var(--line);color:var(--lav);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px;margin-bottom:20px}
+  h1{font-size:44px;line-height:1.25;font-weight:800;letter-spacing:-.5px}
+  h1 em{font-style:normal;color:var(--violet2)}
+  .hero p.lead{color:var(--muted);font-size:18px;max-width:640px;margin:20px auto 0}
+  .cta{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 26px;border-radius:12px;font-weight:700;font-size:16px}
+  .btn-primary{background:var(--violet);color:#fff}
+  .btn-primary:hover{background:#7c3aed}
+  .btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--card)}
+  .btn-ghost:hover{border-color:var(--violet)}
+  .meta{margin-top:18px;font-size:13px;color:var(--muted)}
+  section{padding:56px 0}
+  h2{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:-.3px}
+  .sub{color:var(--muted);margin-bottom:28px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+  .icon{width:40px;height:40px;border-radius:10px;background:#2a1b5e;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+  .sites{display:flex;gap:12px;flex-wrap:wrap}
+  .site{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 20px;font-weight:700;font-size:15px}
+  .site small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+  .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+  .cat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+  .cat b{font-size:15px}
+  .cat span{color:var(--violet2);font-weight:800;font-size:20px}
+  .steps{counter-reset:step;display:grid;gap:14px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start}
+  .step .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:16px;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:15px}
+  code{background:#2a1b5e;color:var(--lav);padding:2px 8px;border-radius:6px;font-size:14px}
+  .note{background:#241a45;border:1px solid var(--line);border-radius:14px;padding:20px 22px;color:var(--muted);font-size:15px}
+  .note b{color:var(--text)}
+  footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:14px;text-align:center}
+  @media(max-width:640px){h1{font-size:32px}.hero{padding:56px 0 44px}}
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a class="logo" href="#">프롬프트 키워드 <span>픽커</span></a>
+    <ul>
+      <li><a href="#features">기능</a></li>
+      <li><a href="#keywords">키워드 97개</a></li>
+      <li><a href="#install">설치 방법</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="badge">Chrome 확장앱 · v1.2.1 · 무료</div>
+    <h1>이미지·영상 프롬프트,<br><em>클릭 한 번으로</em> 입력하세요</h1>
+    <p class="lead">프롬프트 쓸 때 카메라·조명 용어가 기억 안 나서 매번 검색하셨죠? 97개 키워드를 검색·카테고리로 찾고, 클릭 한 번이면 ChatGPT·Claude·Gemini·Muse 채팅창에 바로 입력됩니다.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/cybereun/prompt-keyword-picker/releases/download/v1.2.1/prompt-keyword-extension.zip">v1.2.1 다운로드</a>
+      <a class="btn btn-ghost" href="https://github.com/cybereun/prompt-keyword-picker">GitHub 저장소 보기</a>
+    </div>
+    <p class="meta">ZIP 파일 (24 KB) · Chrome 전용 · 웹스토어 미등록 — 개발자 모드로 직접 설치합니다</p>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>왜 필요할까요?</h2>
+    <p class="sub">용어를 외우는 대신, 만들고 싶은 이미지에 집중하세요.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">⌕</div><h3>빠른 검색</h3><p>한글·영문·설명으로 검색합니다. “로우앵글”, “low angle”, “아래에서 올려다보는 구도” 모두 찾을 수 있어요.</p></div>
+      <div class="card"><div class="icon">▦</div><h3>카테고리 탭</h3><p>카메라 구도·조명·색감·분위기·화풍·재질·화질·영상 움직임·장면 전환, 9개 카테고리로 정리돼 있습니다.</p></div>
+      <div class="card"><div class="icon">➤</div><h3>클릭 한 번 입력</h3><p>키워드 카드를 클릭하면 채팅창에 바로 입력됩니다. 기존 글이 있으면 쉼표로 이어 붙여 줍니다. 전송은 하지 않아요.</p></div>
+      <div class="card"><div class="icon">▤</div><h3>장바구니</h3><p>여러 키워드를 모아 한 번에 입력하거나 복사할 수 있습니다. 프롬프트 조합을 미리 만들 때 편해요.</p></div>
+      <div class="card"><div class="icon">★</div><h3>즐겨찾기 · 내 키워드</h3><p>자주 쓰는 키워드는 별표로 저장하고, 나만의 키워드도 직접 추가할 수 있습니다. 모두 내 브라우저에만 저장돼요.</p></div>
+      <div class="card"><div class="icon">/</div><h3>키보드 단축키</h3><p>사이드 패널에서 <code>/</code> 키를 누르면 바로 검색창으로 이동합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>지원하는 AI 채팅</h2>
+    <p class="sub">아래 사이트에서 사이드 패널을 열고 키워드를 클릭하면 채팅창에 바로 들어갑니다.</p>
+    <div class="sites">
+      <div class="site">ChatGPT<small>chatgpt.com</small></div>
+      <div class="site">Claude<small>claude.ai</small></div>
+      <div class="site">Gemini<small>gemini.google.com</small></div>
+      <div class="site">Muse<small>muse.ai</small></div>
+    </div>
+    <p class="sub" style="margin-top:16px;font-size:14px">다른 사이트에서는 키워드가 자동으로 복사됩니다.</p>
+  </div>
+</section>
+
+<section id="keywords">
+  <div class="wrap">
+    <h2>키워드 97개 구성</h2>
+    <p class="sub">책 43개 + 웹 조사 42개 + 카메라 워크·장면 전환 12개</p>
+    <div class="cats">
+      <div class="cat"><b>카메라 구도</b><span>27</span></div>
+      <div class="cat"><b>조명</b><span>12</span></div>
+      <div class="cat"><b>색감 &amp; 톤</b><span>8</span></div>
+      <div class="cat"><b>분위기</b><span>10</span></div>
+      <div class="cat"><b>화풍 &amp; 스타일</b><span>11</span></div>
+      <div class="cat"><b>재질 &amp; 질감</b><span>7</span></div>
+      <div class="cat"><b>화질 &amp; 디테일</b><span>5</span></div>
+      <div class="cat"><b>영상 움직임</b><span>9</span></div>
+      <div class="cat"><b>장면 전환</b><span>8</span></div>
+    </div>
+    <p class="sub" style="margin-top:16px;font-size:14px">장면 전환에는 점프 컷·매치 컷·휩 팬·크로스 디졸브·와이프·스매시 컷·J컷·L컷이 들어 있습니다. J컷·L컷은 소리 기반 전환이라 무음 영상에서는 반영이 약할 수 있어요.</p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>설치 방법 (약 2분)</h2>
+    <p class="sub">Chrome 웹스토어가 아니라 직접 설치하는 방식입니다.</p>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><h3>ZIP 다운로드</h3><p>위 다운로드 버튼으로 <code>prompt-keyword-extension.zip</code>을 받고 압축을 해제합니다.</p></div></div>
+      <div class="step"><div class="num">2</div><div><h3>개발자 모드 켜기</h3><p><code>chrome://extensions</code>로 들어가 오른쪽 위 <b>개발자 모드</b>를 켭니다.</p></div></div>
+      <div class="step"><div class="num">3</div><div><h3>폴더 로드</h3><p><b>압축해제된 확장 프로그램을 로드합니다</b>를 눌러 해제한 폴더를 선택합니다. 도구모음에 아이콘이 생기면 끝입니다.</p></div></div>
+    </div>
+    <div class="note" style="margin-top:20px"><b>참고:</b> v1.2.1부터 manifest 로드 오류(<code>default_locale</code>)가 수정됐습니다. 예전 폴더가 남아 있으면 지우고 새 폴더로 다시 로드해 주세요.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>프롬프트 키워드 픽커 v1.2.1 · <a href="https://github.com/cybereun/prompt-keyword-picker">github.com/cybereun/prompt-keyword-picker</a></p>
+    <p style="margin-top:8px">책 『빠르게 찾아 쓰는 프롬프트 키워드 모음집』에서 출발했습니다.</p>
+  </div>
+</footer>
+</body>
+</html>
